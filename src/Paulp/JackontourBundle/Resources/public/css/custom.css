@@ -1,0 +1,25 @@
+/*
+d9534f danger
+f0ad4e warning
+5bc0de info
+5cb85c success
+428bca primary
+*/
+body{ 
+	font-family: 'Lato', sans-serif;	
+	/* per navbar fixed */ 
+	padding-top:70px;
+}
+h1,h2,h3{
+	font-family: 'Lato', sans-serif;	
+}
+#geolocmsg{
+	position:absolute; 
+	width:100%;  
+	padding-right:30px;
+	z-index:2;
+}
+#map-canvas{
+	width:100%; 
+	height:500px;
+}

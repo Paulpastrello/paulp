@@ -1,0 +1,3 @@
+paulp_jackontour:
+    resource: "@PaulpJackontourBundle/Controller/"
+    type:     annotation
