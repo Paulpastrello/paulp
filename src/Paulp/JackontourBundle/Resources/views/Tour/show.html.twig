@@ -1,55 +1,36 @@
 {% extends "PaulpJackontourBundle::base.html.twig" %}
 
 {% block page %}
-	
-	{% if is_granted('IS_AUTHENTICATED_FULLY') %}
-		{{ include('PaulpJackontourBundle:Stop:add/stepone.html.twig') }}
-	{% else %}
-		{{ include('PaulpJackontourBundle:Security:login.html.twig') }}
-	{% endif %}
-	
-	<div class="row">	
-		<div id="mobilemap" class="col-md-9 col-sm-12">
-			{{ include('PaulpJackontourBundle:Tour:map.html.twig') }}
-		</div>
-		<div id="mobilelist" class="hidden-sm hidden-xs col-md-3 col-sm-12">
-			{{ render(controller('PaulpJackontourBundle:Tour:list')) }}
-		</div>		
-	</div>
-	
-{% endblock %}
+{{ include('PaulpJackontourBundle:Tour:map.html.twig') }}
 
-{% block footer %}
-<footer class="footer">
-<nav id="navfooter" class="navbar navbar-default navbar-fixed-bottom">
-  <div class="container">
-    <button class="btn btn-block" onclick="expandlist()">Expand list</button>
-  </div>
-</nav>
-</footer>
+<div class="search-box-wrapper">
+     <div class="search-box-inner">
+        <div class="container">
+	<div class="row">
+        <div class="col-md-3 col-sm-4">
+        <div class="search-box map">
+		{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+			{{ include('PaulpJackontourBundle:Stop:add/stepone.html.twig') }}
+		{% else %}
+			{{ include('PaulpJackontourBundle:Security:login.html.twig') }}
+		{% endif %}
+	</div>
+	</div>
+	</div>
+	</div>
+    </div>
+</div>
+
+<div id="page-content">
+	{{ render(controller('PaulpJackontourBundle:Tour:list')) }}
+</div>
+	
 {% endblock %}
 
 {% block javascripts %}
 {{ parent() }}
 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-<script src="{{ asset('bundles/paulpjackontour/js/tappe.js') }}"></script>
+<script src="{{ asset('bundles/paulpjackontour/myjs/tappe.js') }}"></script>
 {% endif %}
 
-
-<script type="text/javascript">
-<!--
-$(document).ready(function(){
-var bodyH = $('body').prop('scrollHeight');
-$(".fullheight").height(bodyH-200);
-});
-
-function expandlist(){
-$('#mobilelist').toggleClass('hidden-sm').toggleClass('hidden-xs');
-var listHeight = $('#mobilelist').prop('scrollHeight');
-var bodyscroll = $('body').prop('scrollHeight');
-$(".fullheight").height(bodyscroll-200-listHeight);
-
-}
-//-->
-</script>
 {% endblock %}

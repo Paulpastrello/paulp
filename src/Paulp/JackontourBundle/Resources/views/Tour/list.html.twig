@@ -1,60 +1,44 @@
-<div id="renderList">
+<section id="price-drop" class="block">
+<div class="container">
 
-<div id="prepagination">
-	{% if pageOffset > 0 %}
-		<button class="btn btn-block btn-xs btn-primary" onclick="renderlist({{page}})">Torna su</button>
-	{% endif %}
-	{% if page > 1 %}
-		<button class="btn btn-block btn-xs btn-default" onclick="renderlist({{page}}, {{pageOffset+1}})">Scorri giu</button>
-		<div class="clearfix"></div>
-	{% endif %}
-</div>
+<header class="section-title">
+<h2>Price Drop</h2>
+<a href="{{ path('listappe') }}" class="link-arrow"> LisTappe </a>
+</header>
 
+<div class="row">
 <div class="list-group">
-	{% set nextpage = false %}
 	{% for tp in tappe %}
-
-	{% if loop.index > page * pageSize %}
-		{% set nextpage = true %}
-	{% else %}	
-		<div class="panel-group" title="{{ tp.data|date("d/m/Y") }}" >			
-			{% if app.session.get('lastId') is defined and app.session.get('lastId') == tp.id %}
-				<a class="btn btn-block btn-xs btn-danger" href="{{ path('remove_stop', {'id': tp.id}) }}" 
-				onclick="return confirm('Vuoi davvero cancellare la tappa?')">Cancella tappa</a>
-			{% endif %}
-			<div class="panel panel-info" role="button" 
-				data-toggle="collapse" data-target="#collapse{{ loop.index - 1 }}" aria-expanded="false" 
-				onclick="showMMarker({{ loop.index - 1 }}); $(this).toggleClass( 'panel-info' ).toggleClass( 'panel-primary' );
-				">
-				<div class="panel-heading">
-					[{{ tp.nome }}]: {{ tp.city|default(tp.addr) }} # {{tp.id}}
-				</div>
-				<div id="collapse{{ loop.index - 1 }}" class="collapse panel-body">
-					{{ tp.addr }}
-				</div>
-			</div>
-		</div>	
+	<div class="col-md-3 col-sm-6">
+           <div class="property">
+              <figure class="tag status">{{ tp.data|date("d/m/Y") }}</figure>
+              {% if app.session.get('lastId') is defined and app.session.get('lastId') == tp.id %}
+                                <a class="btn btn-block btn-xs btn-danger" href="{{ path('remove_stop', {'id': tp.id}) }}"
+                                onclick="return confirm('Vuoi davvero cancellare la tappa?')">Cancella tappa</a>
+              {% endif %}
+              <div class="property-image">
+                   <img alt="" src="{{ asset('bundles/paulpjackontour/img/properties/property-06.jpg') }}">
+              </div>
+              <div class="overlay">
+                     <div class="info">
+        	             <div class="tag price">{{ tp.nome }}</div>
+                             <h3>{{ tp.addr }}</h3>
+                             <figure>{{ tp.city|default(tp.addr) }}</figure>
+                      </div>
+               </div>
+        </div>
 		<div class="inarray hidden">
 			<div>{{ tp.latlng }}</div>
 			<div>{{ loop.index }}</div>
 			<div>{{ tp.addr }}</div>
 		</div>
-	{% endif %}
 	
 	{% endfor %}
 </div>
-
-<div id="pagination">
-	{% if page > 1 %}
-		<button class="btn btn-block btn-xs btn-default" onclick="renderlist({{page-1}}, {{pageOffset}})">Meno tappe</button>
-	{% endif %}
-	{% if nextpage %}
-		<button class="btn btn-block btn-xs btn-primary" onclick="renderlist({{page+1}}, {{pageOffset}})">Pi&ugrave; tappe</button>
-	{% endif %}	
 </div>
-<div id="loading" class="hidden">Loading...</div>
 
 </div>
+</section>
 
 <script type="text/javascript">
 <!--
